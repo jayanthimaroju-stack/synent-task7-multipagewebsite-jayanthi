@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StudyHub – Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --blue: #4f8ef7;
+      --blue-dark: #3a72d8;
+      --yellow: #ffd166;
+      --green: #06d6a0;
+      --bg: #f4f7ff;
+      --white: #ffffff;
+      --text: #1e1e2e;
+      --muted: #6b7280;
+      --border: #e5e7f0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      background: var(--white);
+      border-bottom: 2px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--blue);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--text); }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: #eef2ff;
+      color: var(--blue);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 3px;
+      background: var(--text);
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: var(--white);
+      border-bottom: 2px solid var(--border);
+      padding: 12px 24px 20px;
+      gap: 4px;
+    }
+    .mobile-menu a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 10px 14px;
+      border-radius: 8px;
+      display: block;
+    }
+    .mobile-menu a:hover, .mobile-menu a.active {
+      background: #eef2ff;
+      color: var(--blue);
+    }
+    .mobile-menu.open { display: flex; }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, #4f8ef7 0%, #6c63ff 100%);
+      color: white;
+      text-align: center;
+      padding: 80px 24px 100px;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 20px;
+      padding: 6px 18px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .hero h1 span {
+      background: var(--yellow);
+      color: var(--text);
+      padding: 0 8px;
+      border-radius: 6px;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      opacity: 0.9;
+      max-width: 520px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--text);
+      padding: 13px 28px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+      padding: 13px 28px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { background: white; color: var(--blue); }
+
+    /* ===== SECTION ===== */
+    section { padding: 70px 24px; }
+    .section-title {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 48px;
+    }
+
+    /* ===== FEATURES ===== */
+    .features { background: var(--white); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .feature-card {
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 24px;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--blue);
+    }
+    .feature-icon {
+      font-size: 2.2rem;
+      margin-bottom: 14px;
+    }
+    .feature-card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ===== STEPS ===== */
+    .steps { background: var(--bg); }
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      background: var(--white);
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 24px;
+    }
+    .step-num {
+      background: var(--blue);
+      color: white;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .step h3 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+    .step p { font-size: 0.87rem; color: var(--muted); line-height: 1.6; }
+
+    /* ===== CTA BANNER ===== */
+    .cta-banner {
+      background: linear-gradient(135deg, #06d6a0, #4f8ef7);
+      color: white;
+      text-align: center;
+      padding: 60px 24px;
+    }
+    .cta-banner h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 12px; }
+    .cta-banner p { font-size: 0.95rem; opacity: 0.9; margin-bottom: 28px; }
+    .btn-white {
+      background: white;
+      color: var(--blue-dark);
+      padding: 13px 28px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+    .btn-white:hover { transform: translateY(-2px); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--text);
+      color: #a0a0b0;
+      text-align: center;
+      padding: 30px 24px;
+      font-size: 0.88rem;
+    }
+    footer a { color: var(--blue); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="nav-logo">Study<span>Hub</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" class="active">🏠 Home</a>
+  <a href="about.html">👋 About</a>
+  <a href="services.html">📚 Services</a>
+  <a href="contact.html">📩 Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">🎓 Built for Students, by Students</div>
+  <h1>Learn Smarter,<br/>Not <span>Harder</span></h1>
+  <p>StudyHub helps you organize your studies, track your progress, and connect with resources — all in one friendly place.</p>
+  <div class="hero-btns">
+    <a href="services.html" class="btn-primary">Explore Resources 📚</a>
+    <a href="about.html" class="btn-outline">Learn More →</a>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <h2 class="section-title">Why Students Love Us 💙</h2>
+  <p class="section-sub">Everything you need to ace your studies — in one place</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📖</div>
+      <h3>Study Materials</h3>
+      <p>Free notes, cheat sheets, and guides for all subjects</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎯</div>
+      <h3>Goal Tracking</h3>
+      <p>Set your study goals and celebrate when you hit them</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">👥</div>
+      <h3>Study Groups</h3>
+      <p>Find classmates and study together, online or offline</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🧠</div>
+      <h3>Practice Quizzes</h3>
+      <p>Test your knowledge with fun quizzes before exams</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="steps">
+  <h2 class="section-title">How It Works 🚀</h2>
+  <p class="section-sub">Get started in just 3 easy steps</p>
+  <div class="steps-list">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <h3>Create your free account</h3>
+        <p>Sign up in under a minute — no credit card needed, just your student email.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <h3>Pick your subjects</h3>
+        <p>Tell us what you're studying and we'll recommend the best resources for you.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <h3>Start learning!</h3>
+        <p>Access notes, join study groups, and track your progress — all for free.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <h2>Ready to level up your studies? 🌟</h2>
+  <p>Join thousands of students already using StudyHub to get better grades</p>
+  <a href="contact.html" class="btn-white">Get Started for Free</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 StudyHub &nbsp;|&nbsp; Made with ❤️ for students &nbsp;|&nbsp;
+    <a href="index.html">Home</a> · <a href="about.html">About</a> · <a href="services.html">Services</a> · <a href="contact.html">Contact</a>
+  </p>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+</script>
+</body>
+</html>

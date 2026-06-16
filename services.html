@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StudyHub – Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --blue: #4f8ef7; --blue-dark: #3a72d8;
+      --yellow: #ffd166; --green: #06d6a0;
+      --bg: #f4f7ff; --white: #ffffff;
+      --text: #1e1e2e; --muted: #6b7280; --border: #e5e7f0;
+    }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); }
+
+    nav {
+      background: var(--white); border-bottom: 2px solid var(--border);
+      padding: 0 24px; display: flex; align-items: center;
+      justify-content: space-between; height: 64px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { font-size: 1.4rem; font-weight: 700; color: var(--blue); text-decoration: none; }
+    .nav-logo span { color: var(--text); }
+    .nav-links { display: flex; gap: 8px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted); font-size: 0.9rem;
+      font-weight: 500; padding: 8px 14px; border-radius: 8px; transition: all 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { background: #eef2ff; color: var(--blue); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .hamburger span { display: block; width: 24px; height: 3px; background: var(--text); border-radius: 3px; }
+    .mobile-menu {
+      display: none; flex-direction: column; background: var(--white);
+      border-bottom: 2px solid var(--border); padding: 12px 24px 20px; gap: 4px;
+    }
+    .mobile-menu a {
+      text-decoration: none; color: var(--muted); font-size: 0.95rem;
+      font-weight: 500; padding: 10px 14px; border-radius: 8px; display: block;
+    }
+    .mobile-menu a:hover, .mobile-menu a.active { background: #eef2ff; color: var(--blue); }
+    .mobile-menu.open { display: flex; }
+
+    .page-hero {
+      background: linear-gradient(135deg, #ffd166 0%, #ff9f43 100%);
+      color: var(--text); text-align: center; padding: 60px 24px 70px;
+    }
+    .page-hero h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; margin-bottom: 12px; }
+    .page-hero p { font-size: 1rem; max-width: 480px; margin: 0 auto; line-height: 1.7; opacity: 0.85; }
+
+    section { padding: 60px 24px; }
+    .section-title { font-size: 1.7rem; font-weight: 700; text-align: center; margin-bottom: 10px; }
+    .section-sub { text-align: center; color: var(--muted); font-size: 0.93rem; margin-bottom: 44px; }
+
+    /* Main Services */
+    .main-services { background: var(--white); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px; max-width: 900px; margin: 0 auto;
+    }
+    .service-card {
+      border: 2px solid var(--border); border-radius: 16px;
+      padding: 30px 24px; background: var(--bg);
+      transition: all 0.2s; position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0;
+      right: 0; height: 4px; background: var(--blue);
+    }
+    .service-card:nth-child(2)::before { background: var(--yellow); }
+    .service-card:nth-child(3)::before { background: var(--green); }
+    .service-card:nth-child(4)::before { background: #ff6b9d; }
+    .service-card:hover { transform: translateY(-4px); border-color: var(--blue); box-shadow: 0 8px 24px rgba(79,142,247,0.12); }
+    .service-icon { font-size: 2.4rem; margin-bottom: 16px; }
+    .service-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 10px; }
+    .service-card p { font-size: 0.87rem; color: var(--muted); line-height: 1.7; margin-bottom: 18px; }
+    .tag-list { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag {
+      background: #eef2ff; color: var(--blue);
+      font-size: 0.75rem; font-weight: 500;
+      padding: 4px 10px; border-radius: 20px;
+    }
+
+    /* Free vs Premium */
+    .pricing { background: var(--bg); }
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px; max-width: 700px; margin: 0 auto;
+    }
+    .plan-card {
+      background: var(--white); border: 2px solid var(--border);
+      border-radius: 16px; padding: 32px 28px; text-align: center;
+    }
+    .plan-card.featured {
+      border-color: var(--blue);
+      background: linear-gradient(160deg, #eef2ff 0%, #f4f7ff 100%);
+    }
+    .plan-badge {
+      display: inline-block; background: var(--blue); color: white;
+      font-size: 0.75rem; font-weight: 600; padding: 3px 12px;
+      border-radius: 20px; margin-bottom: 16px;
+    }
+    .plan-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 6px; }
+    .plan-price { font-size: 2.4rem; font-weight: 700; color: var(--blue); margin: 12px 0 6px; }
+    .plan-price span { font-size: 1rem; color: var(--muted); font-weight: 400; }
+    .plan-desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 22px; }
+    .plan-features { list-style: none; margin-bottom: 28px; text-align: left; }
+    .plan-features li {
+      font-size: 0.88rem; padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .plan-features li:last-child { border-bottom: none; }
+    .check { color: var(--green); font-weight: 700; }
+    .cross { color: #ff5c6a; }
+    .btn-plan {
+      display: block; width: 100%; padding: 12px;
+      border-radius: 10px; font-weight: 600; font-size: 0.92rem;
+      text-align: center; text-decoration: none; transition: all 0.2s;
+      border: none; cursor: pointer; font-family: 'Poppins', sans-serif;
+    }
+    .btn-plan-outline {
+      background: transparent; border: 2px solid var(--blue); color: var(--blue);
+    }
+    .btn-plan-outline:hover { background: var(--blue); color: white; }
+    .btn-plan-filled { background: var(--blue); color: white; }
+    .btn-plan-filled:hover { background: var(--blue-dark); }
+
+    /* Resources List */
+    .resources { background: var(--white); }
+    .resource-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px; max-width: 860px; margin: 0 auto;
+    }
+    .resource-item {
+      background: var(--bg); border: 2px solid var(--border);
+      border-radius: 12px; padding: 18px; display: flex;
+      align-items: center; gap: 14px;
+      transition: border-color 0.2s;
+    }
+    .resource-item:hover { border-color: var(--blue); }
+    .resource-item .r-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .resource-item h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 3px; }
+    .resource-item p { font-size: 0.78rem; color: var(--muted); }
+
+    footer {
+      background: var(--text); color: #a0a0b0;
+      text-align: center; padding: 30px 24px; font-size: 0.88rem;
+    }
+    footer a { color: var(--blue); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Study<span>Hub</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">🏠 Home</a>
+  <a href="about.html">👋 About</a>
+  <a href="services.html" class="active">📚 Services</a>
+  <a href="contact.html">📩 Contact</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <h1>What We Offer 📚</h1>
+  <p>Simple tools and resources to make your student life a little bit easier every day.</p>
+</div>
+
+<!-- MAIN SERVICES -->
+<section class="main-services">
+  <h2 class="section-title">Our Services 🛠️</h2>
+  <p class="section-sub">Everything you need under one roof</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">📝</div>
+      <h3>Free Study Notes</h3>
+      <p>Download clear, well-organized notes for popular subjects — written by students, for students.</p>
+      <div class="tag-list">
+        <span class="tag">Science</span>
+        <span class="tag">Maths</span>
+        <span class="tag">History</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🧩</div>
+      <h3>Practice Quizzes</h3>
+      <p>Test yourself with topic-wise quizzes before exams. Instant results so you know what to work on.</p>
+      <div class="tag-list">
+        <span class="tag">MCQs</span>
+        <span class="tag">Flashcards</span>
+        <span class="tag">Timed</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">👥</div>
+      <h3>Study Groups</h3>
+      <p>Join or create a study group with classmates. Share notes, ask doubts, and grow together.</p>
+      <div class="tag-list">
+        <span class="tag">Online</span>
+        <span class="tag">Chat</span>
+        <span class="tag">Scheduled</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎯</div>
+      <h3>Goal Planner</h3>
+      <p>Set weekly study targets, track daily progress, and get reminders so you never fall behind.</p>
+      <div class="tag-list">
+        <span class="tag">Reminders</span>
+        <span class="tag">Streaks</span>
+        <span class="tag">Progress</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANS -->
+<section class="pricing">
+  <h2 class="section-title">Simple Plans 💳</h2>
+  <p class="section-sub">Start free — no credit card ever needed</p>
+  <div class="plans-grid">
+    <div class="plan-card">
+      <h3>Free</h3>
+      <div class="plan-price">₹0 <span>/ forever</span></div>
+      <p class="plan-desc">For every student getting started</p>
+      <ul class="plan-features">
+        <li><span class="check">✓</span> 50+ free notes</li>
+        <li><span class="check">✓</span> 10 quizzes/month</li>
+        <li><span class="check">✓</span> 1 study group</li>
+        <li><span class="check">✓</span> Basic goal planner</li>
+        <li><span class="cross">✗</span> Video lessons</li>
+        <li><span class="cross">✗</span> Priority support</li>
+      </ul>
+      <a href="contact.html" class="btn-plan btn-plan-outline">Get Started Free</a>
+    </div>
+    <div class="plan-card featured">
+      <div class="plan-badge">⭐ Most Popular</div>
+      <h3>Student Pro</h3>
+      <div class="plan-price">₹99 <span>/ month</span></div>
+      <p class="plan-desc">For serious students who want more</p>
+      <ul class="plan-features">
+        <li><span class="check">✓</span> 800+ premium notes</li>
+        <li><span class="check">✓</span> Unlimited quizzes</li>
+        <li><span class="check">✓</span> Unlimited groups</li>
+        <li><span class="check">✓</span> Advanced planner</li>
+        <li><span class="check">✓</span> Video lessons</li>
+        <li><span class="check">✓</span> Priority support</li>
+      </ul>
+      <a href="contact.html" class="btn-plan btn-plan-filled">Upgrade to Pro</a>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCE TYPES -->
+<section class="resources">
+  <h2 class="section-title">What's Inside? 🗂️</h2>
+  <p class="section-sub">A quick look at the types of resources we offer</p>
+  <div class="resource-list">
+    <div class="resource-item">
+      <div class="r-icon">📄</div>
+      <div>
+        <h4>PDF Notes</h4>
+        <p>Download & print anytime</p>
+      </div>
+    </div>
+    <div class="resource-item">
+      <div class="r-icon">🎥</div>
+      <div>
+        <h4>Video Lessons</h4>
+        <p>Short 5–10 min explainers</p>
+      </div>
+    </div>
+    <div class="resource-item">
+      <div class="r-icon">🃏</div>
+      <div>
+        <h4>Flashcards</h4>
+        <p>Quick revision on the go</p>
+      </div>
+    </div>
+    <div class="resource-item">
+      <div class="r-icon">📊</div>
+      <div>
+        <h4>Mind Maps</h4>
+        <p>Visual summaries of topics</p>
+      </div>
+    </div>
+    <div class="resource-item">
+      <div class="r-icon">📋</div>
+      <div>
+        <h4>Past Papers</h4>
+        <p>Practice with real exam Qs</p>
+      </div>
+    </div>
+    <div class="resource-item">
+      <div class="r-icon">✅</div>
+      <div>
+        <h4>Checklists</h4>
+        <p>Never miss a topic again</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 StudyHub &nbsp;|&nbsp; Made with ❤️ for students &nbsp;|&nbsp;
+    <a href="index.html">Home</a> · <a href="about.html">About</a> · <a href="services.html">Services</a> · <a href="contact.html">Contact</a>
+  </p>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+</script>
+</body>
+</html>

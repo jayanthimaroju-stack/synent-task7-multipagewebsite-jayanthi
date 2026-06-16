@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StudyHub – About</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --blue: #4f8ef7; --blue-dark: #3a72d8;
+      --yellow: #ffd166; --green: #06d6a0;
+      --bg: #f4f7ff; --white: #ffffff;
+      --text: #1e1e2e; --muted: #6b7280; --border: #e5e7f0;
+    }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); }
+
+    nav {
+      background: var(--white); border-bottom: 2px solid var(--border);
+      padding: 0 24px; display: flex; align-items: center;
+      justify-content: space-between; height: 64px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { font-size: 1.4rem; font-weight: 700; color: var(--blue); text-decoration: none; }
+    .nav-logo span { color: var(--text); }
+    .nav-links { display: flex; gap: 8px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted); font-size: 0.9rem;
+      font-weight: 500; padding: 8px 14px; border-radius: 8px; transition: all 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { background: #eef2ff; color: var(--blue); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .hamburger span { display: block; width: 24px; height: 3px; background: var(--text); border-radius: 3px; }
+    .mobile-menu {
+      display: none; flex-direction: column; background: var(--white);
+      border-bottom: 2px solid var(--border); padding: 12px 24px 20px; gap: 4px;
+    }
+    .mobile-menu a {
+      text-decoration: none; color: var(--muted); font-size: 0.95rem;
+      font-weight: 500; padding: 10px 14px; border-radius: 8px; display: block;
+    }
+    .mobile-menu a:hover, .mobile-menu a.active { background: #eef2ff; color: var(--blue); }
+    .mobile-menu.open { display: flex; }
+
+    /* Page Hero */
+    .page-hero {
+      background: linear-gradient(135deg, #6c63ff 0%, #4f8ef7 100%);
+      color: white; text-align: center; padding: 60px 24px 70px;
+    }
+    .page-hero h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; margin-bottom: 12px; }
+    .page-hero p { font-size: 1rem; opacity: 0.9; max-width: 480px; margin: 0 auto; line-height: 1.7; }
+
+    section { padding: 60px 24px; }
+    .section-title { font-size: 1.7rem; font-weight: 700; text-align: center; margin-bottom: 10px; }
+    .section-sub { text-align: center; color: var(--muted); font-size: 0.93rem; margin-bottom: 44px; }
+
+    /* Our Story */
+    .story { background: var(--white); }
+    .story-box {
+      max-width: 680px; margin: 0 auto;
+      background: var(--bg); border: 2px solid var(--border);
+      border-radius: 16px; padding: 36px; text-align: center;
+    }
+    .story-box .big-emoji { font-size: 3rem; margin-bottom: 16px; }
+    .story-box p {
+      font-size: 0.97rem; color: var(--muted);
+      line-height: 1.8; margin-bottom: 14px;
+    }
+    .story-box p:last-child { margin-bottom: 0; }
+    .story-box strong { color: var(--text); }
+
+    /* Team */
+    .team { background: var(--bg); }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px; max-width: 860px; margin: 0 auto;
+    }
+    .team-card {
+      background: var(--white); border: 2px solid var(--border);
+      border-radius: 14px; padding: 28px 20px; text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .team-card:hover { transform: translateY(-4px); border-color: var(--blue); }
+    .avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; margin: 0 auto 14px;
+    }
+    .team-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+    .team-card .role { font-size: 0.82rem; color: var(--blue); font-weight: 500; margin-bottom: 8px; }
+    .team-card p { font-size: 0.83rem; color: var(--muted); line-height: 1.5; }
+
+    /* Values */
+    .values { background: var(--white); }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px; max-width: 860px; margin: 0 auto;
+    }
+    .value-item {
+      border-left: 4px solid var(--blue);
+      background: var(--bg); border-radius: 0 12px 12px 0;
+      padding: 20px 20px 20px 22px;
+    }
+    .value-item .emoji { font-size: 1.5rem; margin-bottom: 8px; }
+    .value-item h3 { font-size: 0.97rem; font-weight: 600; margin-bottom: 6px; }
+    .value-item p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    /* Stats */
+    .stats-strip {
+      background: linear-gradient(135deg, #4f8ef7, #6c63ff);
+      color: white; padding: 50px 24px; text-align: center;
+    }
+    .stats-strip h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 36px; }
+    .stats-row {
+      display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
+    }
+    .stat-box { min-width: 120px; }
+    .stat-num { font-size: 2.4rem; font-weight: 700; }
+    .stat-label { font-size: 0.85rem; opacity: 0.85; margin-top: 4px; }
+
+    footer {
+      background: var(--text); color: #a0a0b0;
+      text-align: center; padding: 30px 24px; font-size: 0.88rem;
+    }
+    footer a { color: var(--blue); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Study<span>Hub</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">🏠 Home</a>
+  <a href="about.html" class="active">👋 About</a>
+  <a href="services.html">📚 Services</a>
+  <a href="contact.html">📩 Contact</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <h1>About StudyHub 👋</h1>
+  <p>We're just students like you — who wanted a better way to study and decided to build it ourselves.</p>
+</div>
+
+<!-- OUR STORY -->
+<section class="story">
+  <h2 class="section-title">Our Story 📖</h2>
+  <p class="section-sub">How a study problem turned into a student solution</p>
+  <div class="story-box">
+    <div class="big-emoji">💡</div>
+    <p>It all started during <strong>exam season</strong> when two college students — Arjun and Priya — were frustrated with scattered notes, no study buddies nearby, and zero resources that actually made sense.</p>
+    <p>So they built <strong>StudyHub</strong>. A simple, friendly platform where students can find materials, track their goals, and not feel alone during tough study weeks.</p>
+    <p>Today, StudyHub helps students across <strong>50+ colleges</strong> study better — and honestly, we're just getting started! 🚀</p>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team">
+  <h2 class="section-title">Meet the Team 🙌</h2>
+  <p class="section-sub">Real students building for real students</p>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="avatar" style="background:#eef2ff;">🧑‍💻</div>
+      <h3>Arjun Sharma</h3>
+      <div class="role">Co-Founder & Developer</div>
+      <p>3rd year CS student who lives on coffee and JavaScript</p>
+    </div>
+    <div class="team-card">
+      <div class="avatar" style="background:#fff7e0;">👩‍🎨</div>
+      <h3>Priya Mehta</h3>
+      <div class="role">Co-Founder & Designer</div>
+      <p>Loves making things simple and pretty — UI is her superpower</p>
+    </div>
+    <div class="team-card">
+      <div class="avatar" style="background:#e0fff5;">🧑‍🏫</div>
+      <h3>Rahul Nair</h3>
+      <div class="role">Content Lead</div>
+      <p>Former topper who now writes notes everyone can actually understand</p>
+    </div>
+    <div class="team-card">
+      <div class="avatar" style="background:#ffe0e0;">👩‍💼</div>
+      <h3>Sneha Joshi</h3>
+      <div class="role">Community Manager</div>
+      <p>Keeps our study groups active and the vibes positive 🌈</p>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <h2 class="section-title">What We Believe In ❤️</h2>
+  <p class="section-sub">Our values guide everything we do</p>
+  <div class="values-grid">
+    <div class="value-item">
+      <div class="emoji">🆓</div>
+      <h3>Free for Everyone</h3>
+      <p>Education should never have a paywall. All our core features are free.</p>
+    </div>
+    <div class="value-item">
+      <div class="emoji">🤝</div>
+      <h3>Community First</h3>
+      <p>Studying together beats studying alone. We build for connection.</p>
+    </div>
+    <div class="value-item">
+      <div class="emoji">✨</div>
+      <h3>Keep It Simple</h3>
+      <p>No confusing features. If a 10th grader gets it, we did our job.</p>
+    </div>
+    <div class="value-item">
+      <div class="emoji">📈</div>
+      <h3>Always Improving</h3>
+      <p>We listen to students and update StudyHub based on real feedback.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <h2>StudyHub in Numbers 📊</h2>
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-num">12K+</div>
+      <div class="stat-label">Active Students</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">50+</div>
+      <div class="stat-label">Colleges</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">800+</div>
+      <div class="stat-label">Free Resources</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">4.8⭐</div>
+      <div class="stat-label">Student Rating</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 StudyHub &nbsp;|&nbsp; Made with ❤️ for students &nbsp;|&nbsp;
+    <a href="index.html">Home</a> · <a href="about.html">About</a> · <a href="services.html">Services</a> · <a href="contact.html">Contact</a>
+  </p>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StudyHub – Contact</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --blue: #4f8ef7; --blue-dark: #3a72d8;
+      --yellow: #ffd166; --green: #06d6a0;
+      --bg: #f4f7ff; --white: #ffffff;
+      --text: #1e1e2e; --muted: #6b7280; --border: #e5e7f0;
+    }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); }
+
+    nav {
+      background: var(--white); border-bottom: 2px solid var(--border);
+      padding: 0 24px; display: flex; align-items: center;
+      justify-content: space-between; height: 64px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { font-size: 1.4rem; font-weight: 700; color: var(--blue); text-decoration: none; }
+    .nav-logo span { color: var(--text); }
+    .nav-links { display: flex; gap: 8px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted); font-size: 0.9rem;
+      font-weight: 500; padding: 8px 14px; border-radius: 8px; transition: all 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { background: #eef2ff; color: var(--blue); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .hamburger span { display: block; width: 24px; height: 3px; background: var(--text); border-radius: 3px; }
+    .mobile-menu {
+      display: none; flex-direction: column; background: var(--white);
+      border-bottom: 2px solid var(--border); padding: 12px 24px 20px; gap: 4px;
+    }
+    .mobile-menu a {
+      text-decoration: none; color: var(--muted); font-size: 0.95rem;
+      font-weight: 500; padding: 10px 14px; border-radius: 8px; display: block;
+    }
+    .mobile-menu a:hover, .mobile-menu a.active { background: #eef2ff; color: var(--blue); }
+    .mobile-menu.open { display: flex; }
+
+    .page-hero {
+      background: linear-gradient(135deg, #06d6a0 0%, #4f8ef7 100%);
+      color: white; text-align: center; padding: 60px 24px 70px;
+    }
+    .page-hero h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; margin-bottom: 12px; }
+    .page-hero p { font-size: 1rem; max-width: 480px; margin: 0 auto; line-height: 1.7; opacity: 0.9; }
+
+    section { padding: 60px 24px; }
+    .section-title { font-size: 1.7rem; font-weight: 700; text-align: center; margin-bottom: 10px; }
+    .section-sub { text-align: center; color: var(--muted); font-size: 0.93rem; margin-bottom: 44px; }
+
+    /* Contact layout */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 32px; max-width: 860px; margin: 0 auto;
+      align-items: start;
+    }
+
+    /* Info cards */
+    .info-cards { display: flex; flex-direction: column; gap: 16px; }
+    .info-card {
+      background: var(--white); border: 2px solid var(--border);
+      border-radius: 14px; padding: 20px;
+      display: flex; align-items: flex-start; gap: 16px;
+      transition: border-color 0.2s;
+    }
+    .info-card:hover { border-color: var(--blue); }
+    .info-icon {
+      font-size: 1.6rem; width: 46px; height: 46px;
+      background: #eef2ff; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .info-card h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
+    .info-card p { font-size: 0.83rem; color: var(--muted); line-height: 1.5; }
+    .info-card a { color: var(--blue); text-decoration: none; }
+
+    /* Form */
+    .form-card {
+      background: var(--white); border: 2px solid var(--border);
+      border-radius: 16px; padding: 32px;
+    }
+    .form-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
+    .form-card .form-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 24px; }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block; font-size: 0.87rem; font-weight: 600;
+      margin-bottom: 7px; color: var(--text);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; padding: 12px 14px;
+      border: 2px solid var(--border); border-radius: 10px;
+      font-family: 'Poppins', sans-serif; font-size: 0.9rem;
+      color: var(--text); background: var(--bg);
+      outline: none; transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(79,142,247,0.12);
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .submit-btn {
+      width: 100%; padding: 14px;
+      background: var(--blue); color: white;
+      border: none; border-radius: 10px;
+      font-family: 'Poppins', sans-serif; font-size: 0.97rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .submit-btn:hover { background: var(--blue-dark); transform: translateY(-1px); }
+    .submit-btn:active { transform: scale(0.98); }
+
+    /* Success message */
+    .success-msg {
+      display: none; background: #e0fff5; border: 2px solid var(--green);
+      border-radius: 10px; padding: 16px; text-align: center;
+      color: #047857; font-size: 0.9rem; font-weight: 500; margin-top: 16px;
+    }
+    .success-msg.show { display: block; }
+
+    /* FAQ */
+    .faq { background: var(--bg); }
+    .faq-list { max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      background: var(--white); border: 2px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+    }
+    .faq-q {
+      width: 100%; padding: 18px 20px;
+      background: none; border: none; text-align: left;
+      font-family: 'Poppins', sans-serif; font-size: 0.93rem; font-weight: 600;
+      color: var(--text); cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: background 0.2s;
+    }
+    .faq-q:hover { background: var(--bg); }
+    .faq-arrow { font-size: 1rem; transition: transform 0.3s; color: var(--blue); }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-ans {
+      display: none; padding: 0 20px 18px;
+      font-size: 0.87rem; color: var(--muted); line-height: 1.7;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+    }
+    .faq-item.open .faq-ans { display: block; }
+
+    footer {
+      background: var(--text); color: #a0a0b0;
+      text-align: center; padding: 30px 24px; font-size: 0.88rem;
+    }
+    footer a { color: var(--blue); text-decoration: none; }
+
+    @media (max-width: 700px) {
+      .contact-layout { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Study<span>Hub</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">🏠 Home</a>
+  <a href="about.html">👋 About</a>
+  <a href="services.html">📚 Services</a>
+  <a href="contact.html" class="active">📩 Contact</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <h1>Say Hello! 👋</h1>
+  <p>Got a question, suggestion, or just want to chat? We'd love to hear from you — we usually reply within a day!</p>
+</div>
+
+<!-- CONTACT SECTION -->
+<section style="background: var(--white);">
+  <h2 class="section-title">Get in Touch 📩</h2>
+  <p class="section-sub">Choose the easiest way for you to reach us</p>
+
+  <div class="contact-layout">
+    <!-- Info Cards -->
+    <div class="info-cards">
+      <div class="info-card">
+        <div class="info-icon">📧</div>
+        <div>
+          <h4>Email Us</h4>
+          <p><a href="mailto:hello@studyhub.in">hello@studyhub.in</a><br/>We reply within 24 hours</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">💬</div>
+        <div>
+          <h4>WhatsApp</h4>
+          <p><a href="#">+91 98765 43210</a><br/>Mon–Sat, 9am to 6pm</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">📸</div>
+        <div>
+          <h4>Instagram</h4>
+          <p><a href="#">@studyhub.in</a><br/>DM us anytime!</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">📍</div>
+        <div>
+          <h4>Based In</h4>
+          <p>Mumbai, India 🇮🇳<br/>Helping students nationwide</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="form-card">
+      <h3>Send us a Message ✉️</h3>
+      <p class="form-sub">Fill in the form below and we'll get back to you soon!</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" placeholder="Arjun"/>
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" placeholder="Sharma"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="arjun@college.edu"/>
+      </div>
+
+      <div class="form-group">
+        <label for="topic">What's it about?</label>
+        <select id="topic">
+          <option value="">-- Pick a topic --</option>
+          <option>General Question</option>
+          <option>Study Resources</option>
+          <option>Account Help</option>
+          <option>Report a Bug</option>
+          <option>Feedback / Idea</option>
+          <option>Partnership</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Your Message</label>
+        <textarea id="message" placeholder="Hi! I wanted to ask about..."></textarea>
+      </div>
+
+      <button class="submit-btn" onclick="sendMessage()">Send Message 🚀</button>
+      <div class="success-msg" id="successMsg">
+        🎉 Message sent! We'll reply to your email within 24 hours. Thanks for reaching out!
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <h2 class="section-title">Common Questions ❓</h2>
+  <p class="section-sub">Quick answers to things students usually ask</p>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Is StudyHub really free? <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-ans">Yes! The free plan gives you access to 50+ notes, 10 quizzes a month, and a study group — no credit card needed, ever.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Can I use StudyHub for any subject? <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-ans">We cover most popular school and college subjects — Maths, Science, History, English, and more. We're adding new subjects every month based on student requests!</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        How do I join a study group? <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-ans">After signing up, go to the Study Groups section, search for your subject or class, and click "Join". You can also create your own group and invite classmates.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Is my data safe on StudyHub? <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-ans">Absolutely. We never share or sell your data to anyone. Your account information is encrypted and kept private.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Can I cancel my Pro plan anytime? <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-ans">Of course! You can cancel anytime with no hidden charges. You'll keep Pro access until the end of your billing period, then you'll switch back to the free plan.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 StudyHub &nbsp;|&nbsp; Made with ❤️ for students &nbsp;|&nbsp;
+    <a href="index.html">Home</a> · <a href="about.html">About</a> · <a href="services.html">Services</a> · <a href="contact.html">Contact</a>
+  </p>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  function sendMessage() {
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    if (!email || !message) {
+      alert('Please fill in at least your email and message 😊');
+      return;
+    }
+    document.getElementById('successMsg').classList.add('show');
+    // Clear form
+    ['fname','lname','email','topic','message'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+  }
+
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('open');
+  }
+</script>
+</body>
+</html>

@@ -57,7 +57,7 @@ StudyHub/
 ![Home](screenshots/Home.png)
 
 ### About Section
-![About(screenshots/About.png)
+![About](screenshots/About.png)
 
 ### Services Section
 ![Services](screenshots/Services.png)

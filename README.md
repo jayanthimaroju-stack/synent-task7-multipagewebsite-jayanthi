@@ -45,12 +45,26 @@ StudyHub/
 │── services.html
 │── contact.html
 │── README.md
-└── screenshots/
-    ├── home.png
-    ├── about.png
-    ├── services.png
+└── screenshots2/
+    ├── Home.png
+    ├── About.png
+    ├── Services.png
     └── contact.png
 ```
+## 📷 Screenshots
+
+### Home Section
+![Home](screenshots/Home.png)
+
+### About Section
+![About(screenshots/About.png)
+
+### Services Section
+![Services](screenshots/Services.png)
+
+### contact Section
+![contact](screenshots/contact.png)
+
 
 ---
 
